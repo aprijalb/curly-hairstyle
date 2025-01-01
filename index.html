@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artikel Acak</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+        h1, p {
+            text-align: center;
+        }
+        .images {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .images img {
+            width: 300px;
+            height: auto;
+            border-radius: 10px;
+        }
+        @media (max-width: 600px) {
+            .images img {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Artikel Pilihan</h1>
+        <div class="content">
+            <script>
+                const articles = ['artikel/1.txt', 'artikel/2.txt', 'artikel/3.txt', 'artikel/4.txt'];
+                const images = ['gambar/1.jpg', 'gambar/2.jpg', 'gambar/3.jpg', 'gambar/4.jpg'];
+                
+                // Pilih artikel secara acak
+                const randomArticle = articles[Math.floor(Math.random() * articles.length)];
+                
+                // Tampilkan artikel
+                fetch(randomArticle)
+                    .then(response => response.text())
+                    .then(data => {
+                        document.querySelector('.content').innerHTML = `<p>${data}</p>`;
+                    })
+                    .catch(err => console.error('Gagal memuat artikel:', err));
+                
+                // Pilih dua gambar secara acak
+                const randomImages = images.sort(() => 0.5 - Math.random()).slice(0, 2);
+                
+                // Tampilkan gambar
+                let imageHTML = '<div class="images">';
+                randomImages.forEach(img => {
+                    imageHTML += `<img src="${img}" alt="Gambar Acak">`;
+                });
+                imageHTML += '</div>';
+                document.write(imageHTML);
+            </script>
+        </div>
+    </div>
+</body>
+</html>
